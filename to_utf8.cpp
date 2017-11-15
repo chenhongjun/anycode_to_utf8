@@ -39,23 +39,20 @@ bool to_utf8(const string& file_name) {
             return false;
         char cmd[1024] = {'\0'};
         sprintf(cmd, "iconv -f %s -t UTF-8 -o %s %s", old_code.c_str(), new_file_name.c_str(), file_name.c_str());
+        if ((fp = popen(cmd, "r")) != NULL) {
+            fgets(cmd, sizeof(cmd), fp);
+            pclose(fp);
+            sprintf(cmd,"mv -f %s %s", new_file_name.c_str(), file_name.c_str());
             if ((fp = popen(cmd, "r")) != NULL) {
                 fgets(cmd, sizeof(cmd), fp);
-            cout << cmd << endl;
-                pclose(fp);
-            sprintf(cmd,"mv -f %s %s", new_file_name.c_str(), file_name.c_str());
-                if ((fp = popen(cmd, "r")) != NULL) {
-                    fgets(cmd, sizeof(cmd), fp);
-                cout << cmd << endl;
+                cout << file_name << " : " << old_code << endl;
                 return true;
             }
-
-            }
+        }
     }
     return false;
 }
 
-    //
 int main(int argc, char* argv[]) {
     to_utf8(argv[1]);
     return 0;

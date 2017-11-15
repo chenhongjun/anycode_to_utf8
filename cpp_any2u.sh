@@ -6,17 +6,24 @@ function convert_file() {
 filename=$1
 if [ ! -f $filename ]; then
     echo "$filename isn't exists"
-    exit 0
+    return
 fi
 
 # 转换文件编码为UTF-8
-#file -i $filename | grep -q "iso-8859-1"
-#if [ $? -eq 0 ]; then
-#    echo "iconv -f GBK -t UTF-8 -o $filename".tmp" $filename"
-#    iconv -f GBK -t UTF-8 -o $filename".tmp" $filename
-#    mv $filename".tmp" $filename
-#fi
+file -i $filename | grep -q "iso-8859-1"
+if [ $? -eq 0 ]; then
+    echo "iconv -f GBK -t UTF-8 -o $filename".tmp" $filename"
+    iconv -f GBK -t UTF-8 -o $filename".tmp" $filename
+    mv $filename".tmp" $filename
+fi
+
+#使用file -i
 ./to_utf8 $filename
+
+#使用enca
+#echo $filename
+#enca -L zh_CN $filename
+#enca -L zh_CN -x UTF-8 $filename
 
 # 验证是否为UTF-8
 file -i $filename | grep -q "utf-8\|us-ascii"
@@ -39,7 +46,7 @@ tr -d '\r' < $filename > $filename".tmp"
 mv $filename".tmp" $filename
 
 # 替换tab为空格
-sed -i 's/	/    /g' $filename
+sed -i 's/    /    /g' $filename
 
 # 去除结尾多余的空格
 sed -i 's/    $//g' $filename

@@ -6,7 +6,7 @@ function convert_file() {
 filename=$1
 if [ ! -f $filename ]; then
 	echo "$filename isn't exists"
-	exit 0
+	return
 fi
 
 # 转换文件编码为UTF-8
