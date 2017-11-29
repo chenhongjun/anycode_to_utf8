@@ -1,6 +1,7 @@
 #功能：批量转换编码格式
 #用法：1:编译:make
 #      2:转码:./make_utf8_with_bom.sh  /source/path/
+#作者：陈宏骏，陈宇翔
 
 #文件说明：
 ./path_to_utf8.sh #递归查找指定目录下的所有C++源文件,包含(.cpp .h .inl .c .cc .C)，将所有源文件的路径写入src_file.path文件内，调用./cpp_any2u.sh进行转码
