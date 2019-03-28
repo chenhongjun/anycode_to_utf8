@@ -1,6 +1,12 @@
-#功能：批量转换编码格式
+
+#功能：想实现一个能够批量将文件的编码转成utf8而且不乱码的工具。
+
+1：识别文件编码。
+
+2：转成utf8编码。
+
 #用法：1:编译:make
-#      2:转码:./make_utf8_with_bom.sh  /source/path/
+#     2:转码:./make_utf8_with_bom.sh  /source/path/
 #作者：陈宏骏，陈宇翔
 
 #文件说明：
